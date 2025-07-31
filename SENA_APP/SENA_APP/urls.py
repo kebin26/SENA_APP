@@ -1,7 +1,7 @@
 """
 URL configuration for SENA_APP project.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
+The urlpatterns list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
 Examples:
 Function views
@@ -16,11 +16,19 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
 from aprendices import views
 
 urlpatterns = [
-    path('', views.inicio, name='inicio'),
-    path('admin/', admin.site.urls),
-    path('aprendices/', include('aprendices.urls')),
+    path("", views.inicio, name="inicio"),
+    path("admin/", admin.site.urls),
+    path("aprendices/", include("aprendices.urls")),
+    path("instructores/", include("instructores.urls")),
+    
+    
 ]
+
+#personalizacion del panel administrativo
+admin.site.site_header = "Panel administrativo SENA"
+admin.site.site_title = "SENA APP"
+admin.site.index_title = "Gestion de Aprendices"

@@ -1,17 +1,13 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from .models import Aprendiz
 
-def inicio(request):
-    return render(request, "inicio.html")
-
 def aprendices(request):
-    filtro = request.GET.get("buscar" )
+    filtro = request.GET.get('buscar')
     if filtro:
-        lista = Aprendiz.objects.filter(nombre__icontains = filtro) 
-        Aprendiz.objects.filter(apellido__icontains = filtro)
-        
-    else: 
-        lista = Aprendiz.objects.all().values()
-    return render(request, "lista_aprendices.html", {"aprendices": lista})
-
-# Create your views here.
+        lista = Aprendiz.objects.filter(nombre_icontains=filtro) | Aprendiz.objects.filter(apellido_icontains=filtro)
+    else:
+        lista = Aprendiz.objects.all()
+    return render(request, 'lista_aprendices.html', {'aprendices': lista})
+def inicio(request):
+    return render(request, 'inicio.html')

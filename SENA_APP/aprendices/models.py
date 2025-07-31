@@ -10,13 +10,8 @@ class Aprendiz(models.Model):
     fecha_nacimiento = models.DateField()
     ciudad = models.CharField(max_length=50)
     programa = models.CharField(max_length=100)
-    
-    def __str__(self):
+    def _str_(self):
         return f"{self.nombre} {self.apellido}"
-    
-    def nombre_completo(self):
-        return f"{self.nombre} {self.apellido}"
-
 
 
 # Create your models here.
