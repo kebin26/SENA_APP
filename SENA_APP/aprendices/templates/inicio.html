@@ -1,0 +1,15 @@
+{% extends 'master.html' %}
+
+{% block title %}Inicio | SENA APP{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h2 class="mb-4">Bienvenido a SENA APP</h2>
+    <p class="lead">Sistema de gestión de aprendices del SENA - ADSO</p>
+
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-4">
+        <a href="/admin/" class="btn btn-dark btn-lg">Ir al Panel Administrativo</a>
+        <a href="/aprendices/" class="btn btn-success btn-lg">Ver Lista de Aprendices</a>
+    </div>
+</div>
+{% endblock %}
