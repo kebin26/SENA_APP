@@ -1,3 +1,4 @@
+
 from django.db import models
 
 class Programa(models.Model):
@@ -44,7 +45,7 @@ class Programa(models.Model):
         verbose_name_plural = "Programas de Formación"
         ordering = ['nombre']
 
-    def __str__(self):
+    def _str_(self):
         return f"{self.codigo} - {self.nombre}"
 
     def get_duracion_completa(self):
@@ -52,5 +53,3 @@ class Programa(models.Model):
 
     def is_activo(self):
         return self.estado == 'ACT'
-
-# Create your models here.

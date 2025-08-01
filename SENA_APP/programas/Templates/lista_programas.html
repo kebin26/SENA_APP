@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "master.html" %}
 
 {% block title %}Lista de Programas SENA - SENA APP{% endblock %}
 
@@ -9,9 +9,7 @@
             <h2>Lista de Programas que el SENA ofrece</h2>
             <div>
                 <span class="badge bg-info fs-6">Total: {{ total_programas }} Programas</span>
-                <a href="{% url 'admin:programas_programa_add' %}" class="btn btn-success ms-2">
-                    Nuevo Programa
-                </a>
+                <a href="{% url 'admin:programas_programa_add' %}" class="btn btn-success ms-2"> Nuevo Programa </a>
             </div>
         </div>
     </div>
@@ -46,10 +44,7 @@
                         <td>{{ programa.centro_formacion }}</td>
                         <td>{{ programa.regional }}</td>
                         <td>
-                            <a href="{% url 'admin:programas_programa_change' programa.pk %}" 
-                            class="btn btn-sm btn-outline-primary">
-                                Editar
-                            </a>
+                            <a href="{% url 'admin:programas_programa_change' programa.pk %}"  class="btn btn-sm btn-outline-primary">Editar</a>
                         </td>
                     </tr>
                     {% endfor %}
