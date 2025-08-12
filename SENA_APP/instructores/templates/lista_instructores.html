@@ -1,4 +1,4 @@
-{% extends "master.html" %}
+{% extends "base.html" %}
 
 {% block title %}Lista de Instructores SENA - SENA APP{% endblock %}
 
@@ -34,12 +34,13 @@
                         <th>Nivel Educativo</th>
                         <th>Fecha Nacimiento</th>
                         <th>Especialidad</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for instructor in lista_instructores %}
                     <tr>
-                        <td><strong>{{ instructor.documento_identidad }}</strong></td>
+                        <td><strong><a href ="instructor/{{ instructor.id }}">{{ instructor.documento_identidad }}</a></strong></td>
                         <td>{{ instructor.tipo_documento }}</td>
                         <td>{{ instructor.nombre_completo }}</td>
                         <td>
@@ -53,7 +54,7 @@
                         <td>{{ instructor.especialidad }}</td>
                         <td>
                             <a href="{% url 'admin:instructores_instructor_change' instructor.pk %}" 
-                            class="btn btn-sm btn-outline-primary">
+                               class="btn btn-sm btn-outline-primary">
                                 Editar
                             </a>
                         </td>

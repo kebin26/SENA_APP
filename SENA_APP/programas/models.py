@@ -1,4 +1,3 @@
-
 from django.db import models
 
 class Programa(models.Model):
@@ -45,7 +44,7 @@ class Programa(models.Model):
         verbose_name_plural = "Programas de Formación"
         ordering = ['nombre']
 
-    def _str_(self):
+    def __str__(self):
         return f"{self.codigo} - {self.nombre}"
 
     def get_duracion_completa(self):

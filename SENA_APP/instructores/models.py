@@ -34,13 +34,8 @@ class Instructor(models.Model):
     fecha_vinculacion = models.DateField()
     fecha_registro = models.DateTimeField(auto_now_add=True)
     
+    def __str__(self):
+        return f"{self.nombre} {self.apellido} - {self.especialidad}"
     
     def nombre_completo(self):
         return f"{self.nombre} {self.apellido}"
-    
-    def __str__(self):
-            return f"{self.nombre_completo()} - {self.documento_identidad}"
-    
-
-
-# Create your models here.
