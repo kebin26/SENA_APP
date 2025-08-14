@@ -1,27 +1,71 @@
-from django.http import HttpResponse
-from django.template import loader
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from .models import Programa
-from django.shortcuts import get_object_or_404
+from .forms import ProgramaForm
+from django.views.generic import FormView
+from django.contrib import messages
 
-# Create your views here.
 
-def programas(request):
-    lista_programas = Programa.objects.all()
-    template = loader.get_template('lista_programas.html')
-    context = {
-    'lista_programas': lista_programas,
-    'total_programas': lista_programas.count(),
-    }
-    return HttpResponse(template.render(context, request))
 
-def detalle_programa(request, programa_id):
-    programa = get_object_or_404(Programa, id=programa_id)
-    cursos = programa.curso_set.all().order_by('-fecha_inicio')
-    template = loader.get_template('detalle_programa.html')
-    
-    context = {
-        'programa': programa,
-        'cursos': cursos,
-    }
-    
-    return HttpResponse(template.render(context, request))
+class ProgramaListView(ListView):
+    model = Programa
+    template_name = 'lista_programas.html'
+    context_object_name = 'programas'
+    paginate_by = 10
+
+
+class ProgramaDetailView(DetailView):
+    model = Programa
+    template_name = 'detalle_programa.html'
+    context_object_name = 'programa'
+
+
+# VISTA BASADA EN FUNCION DEL FORMULARIO DE PROGRAMA
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import ProgramaForm
+from .models import Programa
+
+def crear_programa(request):
+    """Vista para crear un nuevo programa"""
+    if request.method == 'POST':
+        form = ProgramaForm(request.POST)
+        if form.is_valid():
+            try:
+                programa = form.save()
+                messages.success(
+                    request, 
+                    f'El Programa {programa.nombre} ha sido registrado exitosamente.'
+                )
+                return redirect('lista_programas')  # Cambia por tu URL de lista
+            except Exception as e:
+                messages.error(request, f'Error al guardar el programa: {str(e)}')
+        else:
+            messages.error(request, 'Por favor, corrija los errores en el formulario.')
+            # Para depuración, imprime los errores
+            print("Errores del formulario:", form.errors)
+    else:
+        form = ProgramaForm()
+
+    return render(request, 'crear_programas.html', {
+        'form': form,
+        'titulo': 'Registrar Nuevo Programa'
+    })
+
+# class ProgramaUpdateView(UpdateView):
+#     model = Programa
+#     form_class = ProgramaForm
+#     template_name = 'editar_programa.html'
+#     success_url = reverse_lazy('programas:lista_programas')
+
+#     def form_valid(self, form):
+#         return super().form_valid(form)
+
+
+# class ProgramaDeleteView(DeleteView):
+#     model = Programa
+#     template_name = 'eliminar_programa.html'
+#     success_url = reverse_lazy('programas:lista_programas')
+
+#     def delete(self, request, *args, **kwargs):
+#         return super().delete(request, *args, **kwargs)
